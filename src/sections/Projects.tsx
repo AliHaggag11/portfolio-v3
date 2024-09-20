@@ -10,7 +10,7 @@ import ArrowUpRight from "@/assets/icons/arrow-up-right.svg";
 
 const portfolioProjects = [
   {
-    company: "Acme Corp",
+    company: "Apex Studios",
     year: "2023",
     title: "Dark Saas Landing Page",
     results: [
