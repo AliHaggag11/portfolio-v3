@@ -43,7 +43,7 @@ const portfolioProjects = [
       { title: "Improved site speed by 50%" },
       { title: "Increased mobile traffic by 35%" },
     ],
-    link: "#",
+    link: "https://xora-ai.vercel.app/",
     image: xoraLP,
   },
 ];
