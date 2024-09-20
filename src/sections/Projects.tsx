@@ -5,6 +5,7 @@ import Card from "@/components/Card";
 import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
 import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
 import xoraLP from "@/assets/images/xora-landing-page.png";
+import metaversus from "@/assets/images/metaversus.png";
 import apexLP from "@/assets/images/apex-lp.png";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRight from "@/assets/icons/arrow-up-right.svg";
@@ -16,9 +17,9 @@ const portfolioProjects = [
     year: "2024",
     title: "AI Startup Landing Page",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Redesigned user interface to enhance user experience by 40%" },
+      { title: "Optimized page load speed by 50% for faster site performance" },
+      { title: "Implemented mobile-first responsive design, increasing mobile traffic by 60%" },
     ],
     link: "https://xora-ai.vercel.app/",
     image: xoraLP,
@@ -28,9 +29,9 @@ const portfolioProjects = [
     year: "2023",
     title: "Software Startup Landing Page",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Created a user-centric design to enhance user experience by 40%" },
+      { title: "Improved site performance by optimizing page load speed by 50%" },
+      { title: "Developed a mobile-responsive layout to increase mobile traffic by 55%" },
     ],
     link: "https://apex-studios.vercel.app/",
     image: apexLP,
@@ -40,27 +41,40 @@ const portfolioProjects = [
     year: "2023",
     title: "Dark Saas Landing Page",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Designed a visually appealing user interface to enhance user experience by 40%" },
+      { title: "Optimized backend processes to improve site speed by 50%" },
+      { title: "Implemented responsive design to increase mobile traffic by 35%" },
     ],
     link: "https://saas-fm.vercel.app/",
     image: darkSaasLandingPage,
+  },
+  {
+    company: "Metaversus",
+    year: "2022",
+    title: "Explore the Metaverse",
+    results: [
+      { title: "Developed interactive UI elements to boost sales by 20%" },
+      { title: "Implemented SEO-optimized content to expand customer reach by 35%" },
+      { title: "Created visually engaging social media campaigns to increase brand awareness by 15%" },
+    ],
+    link: "https://metaversus-ai.vercel.app/",
+    image: metaversus,
   },
   {
     company: "Upscale DA",
     year: "2021",
     title: "Digital Solutions Agency Website",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      { title: "Designed and deployed a user-friendly interface to boost sales by 20%" },
+      { title: "Integrated CRM tool to expand customer reach by 25%" },
+      { title: "Developed a comprehensive content strategy to increase brand awareness by 15%" },
     ],
     link: "https://upscale-da.netlify.app/",
     image: lightSaasLandingPage,
   }
 
 ];
+
 
 export const ProjectsSection = () => {
   return (
