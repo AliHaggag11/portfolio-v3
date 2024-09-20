@@ -5,11 +5,36 @@ import Card from "@/components/Card";
 import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
 import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
 import xoraLP from "@/assets/images/xora-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+import apexLP from "@/assets/images/apex-lp.png";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRight from "@/assets/icons/arrow-up-right.svg";
 
 const portfolioProjects = [
+
+  {
+    company: "Xora AI",
+    year: "2024",
+    title: "AI Startup Landing Page",
+    results: [
+      { title: "Enhanced user experience by 40%" },
+      { title: "Improved site speed by 50%" },
+      { title: "Increased mobile traffic by 35%" },
+    ],
+    link: "https://xora-ai.vercel.app/",
+    image: xoraLP,
+  },
+  {
+    company: "Apex Studios",
+    year: "2023",
+    title: "Software Startup Landing Page",
+    results: [
+      { title: "Enhanced user experience by 40%" },
+      { title: "Improved site speed by 50%" },
+      { title: "Increased mobile traffic by 35%" },
+    ],
+    link: "https://apex-studios.vercel.app/",
+    image: apexLP,
+  },
   {
     company: "Apex Studios",
     year: "2023",
@@ -33,19 +58,8 @@ const portfolioProjects = [
     ],
     link: "https://upscale-da.netlify.app/",
     image: lightSaasLandingPage,
-  },
-  {
-    company: "Xora AI",
-    year: "2024",
-    title: "AI Startup Landing Page",
-    results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
-    ],
-    link: "https://xora-ai.vercel.app/",
-    image: xoraLP,
-  },
+  }
+
 ];
 
 export const ProjectsSection = () => {
