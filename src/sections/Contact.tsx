@@ -13,17 +13,17 @@ const contactMethods = [
   {
     title: "Send an Email",
     description: "Drop me a line for detailed inquiries and collaborations",
-    link: "mailto:your@email.com",
-  },
+        link: "mailto:ali7aggag@gmail.com",
+    },
   {
     title: "Professional Network",
     description: "Connect with me on LinkedIn to explore my professional journey",
-    link: "https://linkedin.com/in/yourprofile",
+    link: "https://linkedin.com/in/ali-haggag/",
   },
   {
     title: "Open Source",
     description: "Check out my contributions and projects on GitHub",
-    link: "https://github.com/yourusername",
+    link: "https://github.com/alihaggag11",
   }
 ];
 

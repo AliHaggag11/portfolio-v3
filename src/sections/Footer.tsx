@@ -178,7 +178,7 @@ export function Footer() {
               </h3>
               <div className="space-y-3">
                 <a 
-                  href="mailto:your@email.com" 
+                  href="mailto:ali7aggag@gmail.com" 
                   className="text-sm text-white/40 hover:text-white/70 transition-all duration-300 flex items-center gap-2 group"
                 >
                   <IconMail size={16} className="group-hover:text-emerald-300 transition-colors duration-300" />
