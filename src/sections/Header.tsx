@@ -16,7 +16,7 @@ export const Header = () => {
       setIsScrolled(window.scrollY > 50)
 
       // Update active section based on scroll position
-      const sections = ['home', 'projects', 'about', 'contact']
+      const sections = ['home', 'projects', 'careers', 'about', 'contact']
       
       // Set home as active when at the top
       if (window.scrollY < 100) {
@@ -46,6 +46,7 @@ export const Header = () => {
   const navItems = [
     { href: '#home', label: 'Home', id: 'home' },
     { href: '#projects', label: 'Projects', id: 'projects' },
+    { href: '#careers', label: 'Careers', id: 'careers' },
     { href: '#about', label: 'About', id: 'about' },
     { href: '#contact', label: 'Contact', id: 'contact' },
   ]

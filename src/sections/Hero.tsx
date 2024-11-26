@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { HeroOrbit } from "@/components/HeroOrbit";
@@ -8,8 +9,33 @@ import ArrowDown from "@/assets/icons/arrow-down.svg";
 import grainImage from "@/assets/images/grain.jpg";
 import StarIcon from "@/assets/icons/star.svg";
 import SparkleIcon from "@/assets/icons/sparkle.svg";
+import { getSiteSettings } from "@/lib/sanity.api";
+import { SiteSettings } from "@/types/sanity";
+import { twMerge } from "tailwind-merge";
 
 export const HeroSection = () => {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        console.log('Fetching site settings...');
+        const data = await getSiteSettings();
+        console.log('Received site settings:', data);
+        setSettings(data);
+      } catch (error) {
+        console.error('Error fetching site settings:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+  console.log('Current settings state:', settings);
+
   return (
     <div className="min-h-screen flex items-center justify-center relative z-10 overflow-x-clip pt-20">
       <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)]">
@@ -58,24 +84,44 @@ export const HeroSection = () => {
       </div>
 
       <div className="container relative z-20">
-        <motion.div 
-          className="flex flex-col items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+        {!isLoading && settings !== null && (
           <motion.div 
-            className="bg-gray-800/50 backdrop-blur-sm border border-white/10 px-5 py-2 inline-flex items-center gap-4 rounded-full shadow-lg"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="bg-gradient-to-r from-emerald-300 to-sky-400 size-2.5 rounded-full relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full animate-ping-large"></div>
-            </div>
-            <div className="text-sm font-medium text-white/90">Available for new projects</div>
+            <motion.div 
+              className={twMerge(
+                "backdrop-blur-sm border border-white/10 px-5 py-2 inline-flex items-center gap-4 rounded-full shadow-lg",
+                settings.availableForWork ? "bg-gray-800/50" : "bg-gray-800/80"
+              )}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.3 }}
+            >
+              <div className={twMerge(
+                "size-2.5 rounded-full relative",
+                settings.availableForWork 
+                  ? "bg-gradient-to-r from-emerald-300 to-sky-400" 
+                  : "bg-gradient-to-r from-orange-300 to-red-400"
+              )}>
+                <div className={twMerge(
+                  "absolute inset-0 rounded-full animate-ping-large",
+                  settings.availableForWork 
+                    ? "bg-gradient-to-r from-emerald-300 to-sky-400" 
+                    : "bg-gradient-to-r from-orange-300 to-red-400"
+                )}></div>
+              </div>
+              <div className="text-sm font-medium text-white/90">
+                {settings.availableForWork 
+                  ? "Available for new projects"
+                  : "Currently working on exciting projects"
+                }
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        )}
 
         <motion.div 
           className="max-w-2xl mx-auto mt-12"
@@ -116,7 +162,7 @@ export const HeroSection = () => {
             whileTap={{ scale: 0.95 }}
           >
             <span>🤝</span>
-            <span className="font-medium text-gray-900">Let&apos;s Connect</span>
+            <span className="font-medium text-gray-900">Let's Connect</span>
           </motion.a>
         </motion.div>
       </div>

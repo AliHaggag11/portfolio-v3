@@ -1,44 +1,100 @@
-import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import grainImage from "@/assets/images/grain.jpg";
+'use client';
 
-export const ContactSection = () => {
+import { motion } from "framer-motion";
+import { SectionHeader } from "@/components/SectionHeader";
+import Card from "@/components/Card";
+
+const contactMethods = [
+  {
+    title: "Let's Chat",
+    description: "Connect with me on WhatsApp for a quick discussion about your project",
+    link: "https://wa.me/201111650444",
+  },
+  {
+    title: "Send an Email",
+    description: "Drop me a line for detailed inquiries and collaborations",
+    link: "mailto:your@email.com",
+  },
+  {
+    title: "Professional Network",
+    description: "Connect with me on LinkedIn to explore my professional journey",
+    link: "https://linkedin.com/in/yourprofile",
+  },
+  {
+    title: "Open Source",
+    description: "Check out my contributions and projects on GitHub",
+    link: "https://github.com/yourusername",
+  }
+];
+
+export function ContactSection() {
   return (
-    <section id="contact" className="py-16 pt-12 lg:py-24 lg:pt-20 relative">
-      {/* Ensure the section itself has a high z-index */}
-      <div className="container relative z-20">
-        <div className="bg-gradient-to-r from-emerald-300 to-sky-400 text-gray-900 py-8 px-10 rounded-3xl text-center md:text-left relative z-20 overflow-hidden">
-          {/* Adjust the z-index of the background image */}
-          <div
-            className="absolute inset-0 opacity-5 -z-10"
-            style={{
-              backgroundImage: `url(${grainImage.src})`,
-            }}
-          ></div>
-          <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
-            <div>
-              <h2 className="font-serif text-2xl md:text-3xl">
-                Let&apos;s create something amazing together
-              </h2>
-              <p className="text-sm md:text-base mt-2">
-                Ready to bring your next project to life? Let&apos;s connect and
-                discuss how I can help you achieve your goals.
-              </p>
+    <section id="contact" className="py-16 pb-8 lg:py-24 lg:pb-12 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent pointer-events-none"></div>
+      
+      <div className="container relative">
+        <SectionHeader 
+          eyebrow="Get in Touch" 
+          title="Let's Work Together" 
+          description="Choose your preferred method of communication and I'll get back to you promptly." 
+        />
+        
+        <div className="mt-12 lg:mt-20">
+          <Card className="relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-800/50 via-transparent to-transparent"></div>
+            
+            <div className="relative grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
+              {contactMethods.map((method, index) => (
+                <motion.a
+                  key={method.title}
+                  href={method.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-8 md:p-12 group hover:bg-white/5 transition-colors duration-300"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+                      {method.title}
+                    </h3>
+                    <motion.div
+                      className="text-white/30 group-hover:text-white/60 transition-colors duration-300"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                    >
+                      →
+                    </motion.div>
+                  </div>
+                  <p className="text-sm text-white/50 group-hover:text-white/70 transition-colors duration-300 pr-12">
+                    {method.description}
+                  </p>
+                  
+                  <div className="absolute bottom-0 left-0 right-0 h-[1px] overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-full h-full bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent"></div>
+                  </div>
+                </motion.a>
+              ))}
             </div>
-            <div>
-              {/* Ensure the anchor tag is not affected by any other styles */}
-              <a
-                href="https://wa.me/201111650444"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex text-white bg-gray-900 items-center px-6 h-12 rounded-xl gap-2 w-max border border-gray-900 hover:-rotate-3 transition duration-300 relative z-30"
-              >
-                <span className="font-semibold">Contact Me</span>
-                <ArrowUpRightIcon className="w-4 h-4" />
-              </a>
+          </Card>
+        </div>
+
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="inline-flex flex-col items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-white/5">
+            <p className="text-white/60">Based in Egypt • Available Worldwide</p>
+            <div className="flex items-center gap-3 text-sm text-white/40">
+              <div className="size-2 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400"></div>
+              <span>GMT+2 (EET)</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
-};
+}

@@ -10,6 +10,9 @@ export interface Project {
 
 export interface Testimonial {
   _id: string;
+  _type: string;
+  _createdAt: string;
+  _updatedAt: string;
   name: string;
   position: string;
   text: string;
@@ -35,4 +38,20 @@ export interface SiteSettings {
   title: string;
   description: string;
   availableForWork: boolean;
+}
+
+export interface Career {
+  _id: string;
+  company: string;
+  position: string;
+  period: string;
+  description: string[];
+  order: number;
+}
+
+export interface CV {
+  _id: string;
+  title: string;
+  file: string;
+  lastUpdated: string;
 } 

@@ -1,6 +1,6 @@
 import { client } from '@/sanity/config'
 import { groq } from 'next-sanity'
-import { Project, Testimonial, ToolboxItem } from '@/types/sanity'
+import { Project, Testimonial, ToolboxItem, SiteSettings, Career, CV } from '@/types/sanity'
 
 export async function getProjects(): Promise<Project[]> {
   try {
@@ -27,15 +27,24 @@ export async function getProjects(): Promise<Project[]> {
 
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {
-    return client.fetch(
-      groq`*[_type == "testimonial"] {
-        _id,
-        name,
-        position,
-        text,
-        "avatar": avatar.asset->url
-      }`
-    )
+    const query = groq`*[_type == "testimonial"] {
+      _id,
+      name,
+      position,
+      text,
+      "avatar": avatar.asset->url
+    }`
+    
+    console.log('Executing testimonials query:', query);
+    const result = await client.fetch(query);
+    console.log('Raw testimonials result:', result);
+    
+    if (!result) {
+      console.warn('No result returned from Sanity');
+      return [];
+    }
+    
+    return result;
   } catch (error) {
     console.error('Error in getTestimonials:', error);
     throw error;
@@ -54,5 +63,89 @@ export async function getToolboxItems(): Promise<ToolboxItem[]> {
   } catch (error) {
     console.error('Error in getToolboxItems:', error);
     throw error;
+  }
+}
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  try {
+    const query = groq`*[_type == "siteSettings"][0] {
+      _id,
+      title,
+      description,
+      availableForWork
+    }`
+    
+    console.log('Executing site settings query:', query)
+    const result = await client.fetch(query, {}, { 
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    })
+    console.log('Site settings result:', result)
+    
+    if (!result) {
+      console.warn('No site settings found, using defaults')
+      return {
+        _id: '',
+        title: 'Portfolio',
+        description: 'My Portfolio Website',
+        availableForWork: true
+      }
+    }
+    
+    return result
+  } catch (error) {
+    console.error('Error fetching site settings:', error)
+    return {
+      _id: '',
+      title: 'Portfolio',
+      description: 'My Portfolio Website',
+      availableForWork: true
+    }
+  }
+}
+
+export async function getCareers(): Promise<Career[]> {
+  try {
+    const query = groq`*[_type == "career"] | order(order asc) {
+      _id,
+      company,
+      position,
+      period,
+      description,
+      order
+    }`
+    
+    console.log('Executing careers query:', query);
+    const result = await client.fetch(query);
+    console.log('Careers result:', result);
+    
+    if (!result) {
+      console.warn('No careers found');
+      return [];
+    }
+    
+    return result;
+  } catch (error) {
+    console.error('Error in getCareers:', error);
+    throw error;
+  }
+}
+
+export async function getCV(): Promise<CV | null> {
+  try {
+    const query = groq`*[_type == "cv"][0] {
+      _id,
+      title,
+      "file": file.asset->url,
+      lastUpdated
+    }`
+    
+    console.log('Executing CV query:', query);
+    const result = await client.fetch(query);
+    console.log('CV result:', result);
+    return result;
+  } catch (error) {
+    console.error('Error fetching CV:', error);
+    return null;
   }
 } 
