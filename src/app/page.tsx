@@ -10,13 +10,19 @@ import { TestimonialsSection } from "@/sections/Testimonials";
 export default function Home() {
   return (
     <div>
-      <Header />
-      <HeroSection />
-      <ProjectsSection />
-      <TapeSection />
-      <TestimonialsSection />
-      <AboutSection />
-      <ContactSection />
+      <section id="home">
+        <Header />
+        <HeroSection />
+      </section>
+      <section id="projects">
+        <ProjectsSection />
+      </section>
+      <section id="about">
+        <AboutSection />
+      </section>
+      <section id="contact">
+        <ContactSection />
+      </section>
       <Footer />
     </div>
   );
