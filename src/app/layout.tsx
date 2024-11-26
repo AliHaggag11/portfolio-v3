@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={twMerge(inter.variable, calistoga.variable, "bg-gray-900 text-white antialiased font-sans relative")}>
+      <body className={twMerge(inter.variable, calistoga.variable, "bg-gray-900 text-white antialiased font-sans relative min-h-screen")}>
         {children}
         <ScrollToTop />
       </body>

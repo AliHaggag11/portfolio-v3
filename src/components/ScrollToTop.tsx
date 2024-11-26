@@ -9,16 +9,13 @@ export const ScrollToTop = () => {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // Check if we're on client side
+    if (typeof window === 'undefined') return;
+
     // Check if we're on desktop and handle window resize
     const checkIsDesktop = () => {
       setIsDesktop(window.innerWidth >= 768); // 768px is Tailwind's md breakpoint
     };
-
-    // Initial check
-    checkIsDesktop();
-
-    // Add resize listener
-    window.addEventListener('resize', checkIsDesktop);
 
     // Show button when page is scrolled up to given distance
     const toggleVisibility = () => {
@@ -29,7 +26,12 @@ export const ScrollToTop = () => {
       }
     };
 
-    // Add scroll listener
+    // Initial checks
+    checkIsDesktop();
+    toggleVisibility();
+
+    // Add event listeners
+    window.addEventListener('resize', checkIsDesktop);
     window.addEventListener('scroll', toggleVisibility);
 
     // Cleanup
@@ -46,12 +48,12 @@ export const ScrollToTop = () => {
     });
   };
 
-  // Only render on client side
-  if (typeof window === 'undefined') return null;
+  // Only render on client side and desktop
+  if (typeof window === 'undefined' || !isDesktop) return null;
 
   return (
     <AnimatePresence>
-      {isVisible && isDesktop && (
+      {isVisible && (
         <motion.button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 size-12 rounded-xl bg-gradient-to-br from-emerald-300/10 to-sky-400/10 hover:from-emerald-300/20 hover:to-sky-400/20 backdrop-blur-sm border border-white/5 flex items-center justify-center text-white/70 hover:text-white transition-colors duration-300 shadow-lg hidden md:flex"
@@ -60,6 +62,7 @@ export const ScrollToTop = () => {
           exit={{ opacity: 0, y: 20 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          aria-label="Scroll to top"
         >
           <IconArrowUp size={20} />
         </motion.button>
