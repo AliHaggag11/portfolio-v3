@@ -8,8 +8,8 @@ export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
-  // Check if we're on desktop and handle window resize
   useEffect(() => {
+    // Check if we're on desktop and handle window resize
     const checkIsDesktop = () => {
       setIsDesktop(window.innerWidth >= 768); // 768px is Tailwind's md breakpoint
     };
@@ -20,23 +20,21 @@ export const ScrollToTop = () => {
     // Add resize listener
     window.addEventListener('resize', checkIsDesktop);
 
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsDesktop);
-  }, []);
+    // Show button when page is scrolled up to given distance
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
 
-  // Show button when page is scrolled up to given distance
-  const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
-
-  // Set the scroll event listener
-  useEffect(() => {
+    // Add scroll listener
     window.addEventListener('scroll', toggleVisibility);
+
+    // Cleanup
     return () => {
+      window.removeEventListener('resize', checkIsDesktop);
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
@@ -47,6 +45,9 @@ export const ScrollToTop = () => {
       behavior: 'smooth',
     });
   };
+
+  // Only render on client side
+  if (typeof window === 'undefined') return null;
 
   return (
     <AnimatePresence>

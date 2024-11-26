@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Calistoga } from "next/font/google";
-
+import { ScrollToTop } from '@/components/ScrollToTop';
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
-import { ScrollToTop } from '@/components/ScrollToTop'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const calistoga = Calistoga({
@@ -24,8 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={twMerge(inter.variable, calistoga.variable, "bg-gray-900 text-white antialiased font-sans")}>{children}</body>
-      <ScrollToTop />
+      <body className={twMerge(inter.variable, calistoga.variable, "bg-gray-900 text-white antialiased font-sans relative")}>
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   );
 }
