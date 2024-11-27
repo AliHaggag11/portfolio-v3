@@ -54,4 +54,17 @@ export interface CV {
   title: string;
   file: string;
   lastUpdated: string;
+}
+
+export interface BlogPost {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  publishedAt: string;
+  excerpt: string;
+  mainImage?: string;
+  content: any[];
+  tags: string[];
 } 

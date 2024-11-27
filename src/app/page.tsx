@@ -8,6 +8,7 @@ import { ProjectsSection } from "@/sections/Projects";
 import { TapeSection } from "@/sections/Tape";
 import { TestimonialsSection } from "@/sections/Testimonials";
 import { CareersSection } from "@/sections/Careers";
+import { BlogSection } from "@/sections/Blog";
 
 export default function Home() {
   return (
@@ -33,6 +34,11 @@ export default function Home() {
       <Suspense fallback={<div>Loading about...</div>}>
         <section id="about">
           <AboutSection />
+        </section>
+      </Suspense>
+      <Suspense fallback={<div>Loading blog...</div>}>
+        <section id="blog">
+          <BlogSection />
         </section>
       </Suspense>
       <section id="contact">

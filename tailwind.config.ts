@@ -57,8 +57,61 @@ const config: Config = {
 			backdropBlur: {
 				xs: '2px',
 			},
+			typography: {
+				DEFAULT: {
+					css: {
+						color: '#fff',
+						a: {
+							color: '#6ee7b7',
+							'&:hover': {
+								color: '#34d399',
+							},
+						},
+						strong: {
+							color: '#fff',
+						},
+						h1: {
+							color: '#fff',
+						},
+						h2: {
+							color: '#fff',
+						},
+						h3: {
+							color: '#fff',
+						},
+						h4: {
+							color: '#fff',
+						},
+						blockquote: {
+							color: '#d1d5db',
+							borderLeftColor: '#6ee7b7',
+						},
+						code: {
+							color: '#6ee7b7',
+							backgroundColor: 'rgba(110, 231, 183, 0.1)',
+							padding: '0.25rem 0.5rem',
+							borderRadius: '0.25rem',
+						},
+						'code::before': {
+							content: '""',
+						},
+						'code::after': {
+							content: '""',
+						},
+						pre: {
+							backgroundColor: '#1f2937',
+							code: {
+								backgroundColor: 'transparent',
+								padding: '0',
+							},
+						},
+					},
+				},
+			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		require('@tailwindcss/typography'),
+	],
 };
 export default config;

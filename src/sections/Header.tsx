@@ -16,7 +16,7 @@ export const Header = () => {
       setIsScrolled(window.scrollY > 50)
 
       // Update active section based on scroll position
-      const sections = ['home', 'projects', 'careers', 'about', 'contact']
+      const sections = ['home', 'projects', 'careers', 'about', 'blog', 'contact']
       
       // Set home as active when at the top
       if (window.scrollY < 100) {
@@ -48,6 +48,7 @@ export const Header = () => {
     { href: '#projects', label: 'Projects', id: 'projects' },
     { href: '#careers', label: 'Careers', id: 'careers' },
     { href: '#about', label: 'About', id: 'about' },
+    { href: '#blog', label: 'Blog', id: 'blog' },
     { href: '#contact', label: 'Contact', id: 'contact' },
   ]
 

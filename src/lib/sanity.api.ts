@@ -1,6 +1,6 @@
 import { client } from '@/sanity/config'
 import { groq } from 'next-sanity'
-import { Project, Testimonial, ToolboxItem, SiteSettings, Career, CV } from '@/types/sanity'
+import { Project, Testimonial, ToolboxItem, SiteSettings, Career, CV, BlogPost } from '@/types/sanity'
 
 export async function getProjects(): Promise<Project[]> {
   try {
@@ -147,5 +147,47 @@ export async function getCV(): Promise<CV | null> {
   } catch (error) {
     console.error('Error fetching CV:', error);
     return null;
+  }
+}
+
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const query = groq`*[_type == "blog"] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      excerpt,
+      "mainImage": mainImage.asset->url,
+      content,
+      tags
+    }`
+    
+    const result = await client.fetch(query);
+    return result;
+  } catch (error) {
+    console.error('Error in getBlogPosts:', error);
+    throw error;
+  }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
+  try {
+    const query = groq`*[_type == "blog" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      excerpt,
+      "mainImage": mainImage.asset->url,
+      content,
+      tags
+    }`
+    
+    const result = await client.fetch(query, { slug });
+    return result;
+  } catch (error) {
+    console.error('Error in getBlogPostBySlug:', error);
+    throw error;
   }
 } 

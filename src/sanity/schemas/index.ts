@@ -6,7 +6,8 @@ import hobby from './hobby'
 import siteSettings from './siteSettings'
 import career from './career'
 import cv from './cv'
+import blog from './blog'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [project, testimonial, toolboxItem, hobby, siteSettings, career, cv],
+  types: [project, testimonial, toolboxItem, hobby, siteSettings, career, cv, blog],
 } 
