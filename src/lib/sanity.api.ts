@@ -15,7 +15,10 @@ export async function getProjects(): Promise<Project[]> {
     }`
     
     console.log('Executing query:', query);
-    const result = await client.fetch(query);
+    const result = await client.fetch(query, {}, { 
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
     console.log('Query result:', result);
     
     return result;
