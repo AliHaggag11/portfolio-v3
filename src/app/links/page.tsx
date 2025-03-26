@@ -1,11 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaTwitter, FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaTwitter, FaInstagram, FaFacebook, FaYoutube, FaQrcode, FaTimes } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 import memojiImage from "@/assets/images/memoji-computer.png";
 import grainImage from "@/assets/images/grain.jpg";
 import { HeroOrbit } from "@/components/HeroOrbit";
@@ -42,10 +43,62 @@ interface LinksPageSettings {
   showAvailabilityStatus: boolean;
 }
 
+interface QRModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function QRModal({ isOpen, onClose }: QRModalProps) {
+  if (!isOpen) return null;
+
+  // Get the current URL of the links page
+  const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          className="bg-gray-800/90 p-6 rounded-2xl border border-white/10 relative"
+          onClick={e => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 text-white/50 hover:text-white transition-colors"
+          >
+            <FaTimes className="w-5 h-5" />
+          </button>
+          <div className="text-center mb-4">
+            <h3 className="text-xl font-medium text-white/90 mb-1">Links Page QR Code</h3>
+            <p className="text-sm text-white/50">Scan to visit this page</p>
+          </div>
+          <div className="bg-white p-4 rounded-xl">
+            <QRCodeSVG
+              value={pageUrl}
+              size={250}
+              level="H"
+              includeMargin={true}
+            />
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function LinksPage() {
   const [links, setLinks] = useState<SocialLink[]>([]);
   const [settings, setSettings] = useState<LinksPageSettings | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,19 +183,31 @@ export default function LinksPage() {
             {settings.name}
           </h1>
           <p className="text-gray-300 mb-4 text-lg tracking-wide">{settings.title}</p>
-          <motion.div 
-            className="inline-flex flex-col items-center gap-2 px-6 py-3 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/5"
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <p className="text-white/60 tracking-wide">{settings.location}</p>
-            <div className="flex items-center gap-2 text-sm text-white/40">
-              {settings.showAvailabilityStatus && (
-                <div className="size-2 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400"></div>
-              )}
-              <span className="tracking-wide">{settings.timezone}</span>
-            </div>
-          </motion.div>
+          <div className="flex flex-col items-center gap-4">
+            <motion.div 
+              className="inline-flex flex-col items-center gap-2 px-6 py-3 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/5"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <p className="text-white/60 tracking-wide">{settings.location}</p>
+              <div className="flex items-center gap-2 text-sm text-white/40">
+                {settings.showAvailabilityStatus && (
+                  <div className="size-2 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400"></div>
+                )}
+                <span className="tracking-wide">{settings.timezone}</span>
+              </div>
+            </motion.div>
+            <motion.button
+              onClick={() => setIsQRModalOpen(true)}
+              className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-white/5 hover:border-white/10 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-300/20 to-sky-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+              <FaQrcode className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+              <span className="relative text-white/70 group-hover:text-white text-sm tracking-wide">Share via QR Code</span>
+            </motion.button>
+          </div>
         </motion.div>
 
         {/* Links Grid */}
@@ -213,6 +278,11 @@ export default function LinksPage() {
           </Link>
         </motion.div>
       </div>
+
+      <QRModal
+        isOpen={isQRModalOpen}
+        onClose={() => setIsQRModalOpen(false)}
+      />
     </div>
   );
 } 
