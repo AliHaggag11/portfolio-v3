@@ -21,8 +21,13 @@ export default defineType({
       name: 'url',
       title: 'URL',
       type: 'string',
-      validation: (Rule) => Rule.required().uri({
-        scheme: ['http', 'https', 'mailto', 'tel', 'sms', 'whatsapp']
+      validation: (Rule) => Rule.required().custom((value: string | undefined) => {
+        if (!value) return 'URL is required';
+        const pattern = /^(https?:\/\/|mailto:|tel:|sms:|whatsapp:)/;
+        if (!pattern.test(value)) {
+          return 'URL must start with http://, https://, mailto:, tel:, sms:, or whatsapp:';
+        }
+        return true;
       }),
     }),
     defineField({
