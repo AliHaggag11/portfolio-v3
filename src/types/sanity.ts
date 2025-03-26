@@ -67,4 +67,16 @@ export interface BlogPost {
   mainImage?: string;
   content: any[];
   tags: string[];
+}
+
+export interface SocialLink {
+  title: string;
+  description: string;
+  url: string;
+  icon: 'whatsapp' | 'email' | 'linkedin' | 'github' | 'twitter' | 'instagram' | 'facebook' | 'youtube';
+  gradient: {
+    from: string;
+    to: string;
+  };
+  order: number;
 } 

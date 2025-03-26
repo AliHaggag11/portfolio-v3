@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Calistoga } from "next/font/google";
+import { Inter, Calistoga, Afacad } from "next/font/google";
 import { LoadingBar } from "@/components/LoadingBar";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
@@ -9,6 +9,10 @@ const calistoga = Calistoga({
   subsets: ["latin"],
   variable: "--font-serif",
   weight: ["400"]
+});
+const afacad = Afacad({
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -22,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={twMerge(inter.variable, calistoga.variable, "bg-gray-900 text-white antialiased font-sans relative min-h-screen")}>
+    <html lang="en" className={twMerge(inter.variable, calistoga.variable, afacad.className, "bg-gray-900 text-white antialiased font-sans relative min-h-screen")}>
+      <body>
         <LoadingBar />
         {children}
       </body>

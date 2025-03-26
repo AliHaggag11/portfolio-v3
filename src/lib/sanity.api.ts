@@ -193,4 +193,32 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
     console.error('Error in getBlogPostBySlug:', error);
     throw error;
   }
+}
+
+export async function getSocialLinks() {
+  const query = `*[_type == "link"] | order(order asc) {
+    title,
+    description,
+    url,
+    icon,
+    gradient,
+    order
+  }`;
+
+  const links = await client.fetch(query);
+  return links;
+}
+
+export async function getLinksPageSettings() {
+  const query = `*[_type == "linksPage"][0] {
+    profileImage,
+    name,
+    title,
+    location,
+    timezone,
+    showAvailabilityStatus
+  }`;
+
+  const settings = await client.fetch(query);
+  return settings;
 } 
