@@ -13,6 +13,8 @@ const calistoga = Calistoga({
 const afacad = Afacad({
   subsets: ['latin'],
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-afacad',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={twMerge(inter.variable, calistoga.variable, afacad.className, "bg-gray-900 text-white antialiased font-sans relative min-h-screen")}>
+    <html lang="en" className={twMerge(
+      inter.variable,
+      calistoga.variable,
+      afacad.variable,
+      "bg-gray-900 text-white antialiased font-sans relative min-h-screen"
+    )}>
       <body>
         <LoadingBar />
         {children}

@@ -210,15 +210,16 @@ export async function getSocialLinks() {
 }
 
 export async function getLinksPageSettings() {
-  const query = `*[_type == "linksPage"][0] {
+  const query = groq`*[_type == "linksPage"][0]{
     profileImage,
     name,
     title,
     location,
     timezone,
-    showAvailabilityStatus
+    showAvailabilityStatus,
+    showAnnouncement,
+    announcement
   }`;
 
-  const settings = await client.fetch(query);
-  return settings;
+  return client.fetch(query);
 } 

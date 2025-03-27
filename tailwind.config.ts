@@ -24,6 +24,7 @@ const config: Config = {
 			fontFamily: {
 				sans: "var(--font-sans)",
 				serif: "var(--font-serif)",
+				afacad: "var(--font-afacad)",
 			},
 			animation: {
 				"ping-large": "ping-large 1s ease-in-out infinite",
